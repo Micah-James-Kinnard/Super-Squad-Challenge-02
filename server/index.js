@@ -1,4 +1,3 @@
-// index.js
 // Required modules
 const express = require('express');
 const path = require('path');
@@ -46,7 +45,7 @@ app.get('/form', (req, res) => {
 // Form submission route
 app.post('/submit-form', async (req, res) => {
     try {
-        const { superHeroName, universe, powers } = req.body;
+        const { name, email, message } = req.body;
 
         // Read existing users from file
         let users = [];
@@ -60,11 +59,11 @@ app.post('/submit-form', async (req, res) => {
         }
 
         // Find or create user
-        let user = users.find(u => u.name === superHeroName && u.universe === universe);
+        let user = users.find(u => u.name === name && u.email === email);
         if (user) {
-            user.messages.push(powers);
+            user.messages.push(message);
         } else {
-            user = { superHeroName, universe, powers: [powers] };
+            user = { name, email, messages: [message] };
             users.push(user);
         }
 
@@ -103,7 +102,35 @@ app.put('/update-user/:currentName/:currentEmail', async (req, res) => {
         res.status(500).send('An error occurred while updating the user.');
     }
 });
+app.delete('/user/:name/:email', async (req, res) => {
+    try {
+        // console.log(req.params);
+        // console.log(req.params.name);
+        // console.log(req.params.email);
+        const { name, email } = req.params
+        let users = [];
+        try {
+            const data = await fs.readFile(dataPath, 'utf8');
+            users = JSON.parse(data);
+        } catch (error) {
+            return res.status(404).send('User data not found');
+        }
 
+        const userIndex = users.findIndex(user => user.name === name && user.email === email);
+        if (userIndex === -1) {
+            return res.status(404).send('User not found')
+        }
+        users.splice(userIndex, 1);
+        try {
+            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+        } catch (error) {
+            console.error("Failed to write to database");
+        }
+        res.send('User Deleted Successfully');
+    } catch (error) {
+        res.status(500).send('There was an error deleting user');
+    }
+});
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

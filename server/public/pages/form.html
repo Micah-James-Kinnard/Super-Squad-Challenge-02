@@ -8,14 +8,14 @@
   <body>
     <h1>Contact Form</h1>
     <form action="/submit-form" method="POST">
-      <label for="superHeroName">Name:</label>
-      <input type="text" id="superHeroName" name="name" required /><br /><br />
-      <label for="universe">Universe:</label>
-      <input type="text" id="universe" name="universe" required /><br /><br />
-      <label for="powers">Powers:</label><br />
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required /><br /><br />
+      <label for="message">Message:</label><br />
       <textarea
-        id="powers"
-        name="powers"
+        id="message"
+        name="message"
         rows="4"
         cols="50"
         required
@@ -24,23 +24,33 @@
       <input type="submit" value="Submit" />
     </form>
     <h1>User Management</h1>
+    <h2>Update User</h2>
     <form id="updateForm">
-      <label for="currentSuperHeroName">Current name:</label>
-      <input type="text" id="currentSuperHeroName" required /><br /><br />
-      <label for="currentPowers">Current powers:</label>
-      <input type="text" id="currentPowers" required /><br /><br />
-      <label for="newSuperHeroName">New name:</label>
-      <input type="text" id="newSuperHeroName" required /><br /><br />
-      <label for="newPowers">New powers:</label>
-      <input type="text" id="newPowers" required /><br /><br />
+      <label for="currentName">Current name:</label>
+      <input type="text" id="currentName" required /><br /><br />
+      <label for="currentEmail">Current email:</label>
+      <input type="email" id="currentEmail" required /><br /><br />
+      <label for="newName">New name:</label>
+      <input type="text" id="newName" required /><br /><br />
+      <label for="newEmail">New email:</label>
+      <input type="email" id="newEmail" required /><br /><br />
       <button type="submit">Update User</button>
+    </form>
+    <h2>Delete User</h2>
+    <form id="delete-user">
+      <label for="delete-name">Name:</label>
+      <input type="text" id="delete-name" /><br /><br />
+
+      <label for="delete-email">Email:</label>
+      <input type="text" id="delete-email" /><br /><br />
+      <button type="submit">Delete User</button><br /><br />
     </form>
     <h1>Show Users</h1>
     <table id="usersTable">
       <thead>
         <tr>
-          <th>Superhero Name</th>
-          <th>Superhero Powers</th>
+          <th>User Name</th>
+          <th>User Email</th>
         </tr>
       </thead>
       <tbody id="userTableBody">
@@ -52,10 +62,10 @@
         .getElementById("updateForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const currentName = document.getElementById("currentSuperHeroName").value;
-          const currentEmail = document.getElementById("currentPowers").value;
-          const newName = document.getElementById("newSuperHeroName").value;
-          const newEmail = document.getElementById("newPowers").value;
+          const currentName = document.getElementById("currentName").value;
+          const currentEmail = document.getElementById("currentEmail").value;
+          const newName = document.getElementById("newName").value;
+          const newEmail = document.getElementById("newEmail").value;
           try {
             const response = await fetch(
               `/update-user/${currentName}/${currentEmail}`,
@@ -72,9 +82,31 @@
             renderUsers();
             // alert("Message is: " + data.message);
           } catch (error) {
-            alert("Error updating superhero: " + error.message);
+            alert("Error updating user: " + error.message);
           }
         });
+
+      document
+        .getElementById("delete-user")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("delete-name").value;
+          const email = document.getElementById("delete-email").value;
+          try {
+            const response = await fetch(`/user/${name}/${email}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              throw new Error("Error with network");
+            }
+            const data = await response.text();
+            console.log(data);
+            renderUsers();
+          } catch (error) {
+            console.error("something went wrong" + error.message);
+          }
+        });
+
       async function fetchUsers() {
         try {
           const response = await fetch("/users");
