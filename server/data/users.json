@@ -1,10 +1,9 @@
 [
   {
-    "name": "Superman",
-    "universe": "DC",
-    "powers": [
-      "Flight",
-      "Super Strength"
+    "name": "a",
+    "email": "dc",
+    "messages": [
+      "water manipulation"
     ]
   }
 ]

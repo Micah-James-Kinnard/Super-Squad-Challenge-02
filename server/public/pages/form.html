@@ -3,60 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Form</title>
+    <title>Super squad project</title>
   </head>
-  <body>
-    <h1>Contact Form</h1>
-    <form action="/submit-form" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required /><br /><br />
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required /><br /><br />
-      <label for="message">Message:</label><br />
-      <textarea
-        id="message"
-        name="message"
-        rows="4"
-        cols="50"
-        required
-      ></textarea
-      ><br /><br />
-      <input type="submit" value="Submit" />
-    </form>
-    <h1>User Management</h1>
-    <h2>Update User</h2>
-    <form id="updateForm">
-      <label for="currentName">Current name:</label>
-      <input type="text" id="currentName" required /><br /><br />
-      <label for="currentEmail">Current email:</label>
-      <input type="email" id="currentEmail" required /><br /><br />
-      <label for="newName">New name:</label>
-      <input type="text" id="newName" required /><br /><br />
-      <label for="newEmail">New email:</label>
-      <input type="email" id="newEmail" required /><br /><br />
-      <button type="submit">Update User</button>
-    </form>
-    <h2>Delete User</h2>
-    <form id="delete-user">
-      <label for="delete-name">Name:</label>
-      <input type="text" id="delete-name" /><br /><br />
+  <style>
+    * {
+      font-family: Roboto;
+      color: white;
+    }
 
-      <label for="delete-email">Email:</label>
-      <input type="text" id="delete-email" /><br /><br />
-      <button type="submit">Delete User</button><br /><br />
-    </form>
-    <h1>Show Users</h1>
-    <table id="usersTable">
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>User Email</th>
-        </tr>
-      </thead>
-      <tbody id="userTableBody">
-        <!-- data of users will be rendered here -->
-      </tbody>
-    </table>
+    body {
+      background-image: url("https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=AOo0EEVvIUz2rknMHiTP0TphcOV1oDThs9a%2FPy2RxHNB8NCm0LaovDsAKGwpF7f1YLIxI%2B7gifmR4DLaD6LaXNIee7la51ko%2FPuvW6bVZgnkVy7n3wmCfAQKm74B3DgVb2susnT3dHB9zG22L1vD%2BHD9h4%2ByUGtkn6Uj7T1Z67WG9tXSdOMXRfAyIOhBZNpr92X1%2BkT4XOVHxMa5gY6GiPL%2FEL7wDdbrJc3UTQbwn42tYxOLHh4PzG46%2BJ5YrHSMLmO4EGB5Cufl%2FhxAD0NLtNUSCNAIr8ncPFeAUKj0WS%2BxUack8If5MgpO6eyIv1tGGEgzgeAJ1MRax0YYdZMr9Xe8sLEOAcNUtQBnpBIdep6oDp8OyCJO3WduyYqakNo%2FRtj7tLoCeAeFTR1rqtTOLyCE1JYpUunYzEaeqK0poluYiAhX%2Foy8%2B2h9HGZSC6g3Podtb6FTQJ%2BxmKqOk%2F8eyXF7M04fszTsECLQa65UadtkO32FQXrEFy0%2BxshdP4GbmxsnrZXp%2Byn%2FVImv9V9RnvFmW45df93invibl4DMK1iQyYcvh48ZzNv5eyQ04U37xSY%3D&sz=w512");
+      background-size: cover;
+    }
+
+    h1 {
+      text-align: center;
+    }
+    .left-align-container {
+      margin: center;
+      text-align: center;
+      width: 49%;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .right-align-container {
+      /* margin: center; */
+      float: right;
+      text-align: center;
+      width: 49%;
+      position: absolute;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    #subButton {
+      background-color: black;
+    }
+  </style>
+  <body>
+    <div class="left-align-container">
+      <h1>Contact Form</h1>
+      <form action="/submit-form" method="POST">
+        <label for="name">Superhero name:</label>
+        <input type="text" id="name" name="name" required /><br /><br />
+        <label for="email">Superhero Universe:</label>
+        <input type="text" id="email" name="email" required /><br /><br />
+        <label for="message">Superhero Powers:</label><br />
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          cols="50"
+          required
+        ></textarea
+        ><br /><br />
+        <input type="submit" value="Submit" id="subButton" />
+      </form>
+      <h1>Superhero Management</h1>
+      <h2>Update Superhero</h2>
+      <form id="updateForm">
+        <label for="currentName">Current superhero name:</label>
+        <input type="text" id="currentName" required /><br /><br />
+        <label for="currentEmail">Current universe:</label>
+        <input type="email" id="currentEmail" required /><br /><br />
+        <label for="newName">New superhero name:</label>
+        <input type="text" id="newName" required /><br /><br />
+        <label for="newEmail">New universe:</label>
+        <input type="text" id="newEmail" required /><br /><br />
+        <button type="submit" id="subButton">Update Superhero</button>
+      </form>
+    </div>
+    <div class="right-align-container">
+      <h2>Delete Superhero</h2>
+      <form id="delete-user">
+        <label for="delete-name">Superhero name:</label>
+        <input type="text" id="delete-name" /><br /><br />
+
+        <label for="delete-email">Universe:</label>
+        <input type="text" id="delete-email" /><br /><br />
+        <button type="submit" id="subButton">Delete superhero</button
+        ><br /><br />
+      </form>
+
+      <h1>Show superheros</h1>
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>Superhero Name</th>
+            <th>Superhero Universe</th>
+            <th>Superhero Powers</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <!-- data of users will be rendered here -->
+        </tbody>
+      </table>
+    </div>
     <script>
       document
         .getElementById("updateForm")
@@ -132,7 +173,7 @@
           const users = await fetchUsers();
           if (Array.isArray(users) && users.length > 0) {
             users.forEach((user) => {
-              const row = `<tr><td>${user.name}</td><td>${user.email}</td></tr>`;
+              const row = `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.messages}</td></tr>`;
               tableBody.innerHTML += row;
             });
           }
